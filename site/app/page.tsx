@@ -145,9 +145,9 @@ function Hero() {
   return (
     <section className="mx-auto max-w-6xl px-6 pt-16 md:pt-24">
       <h1 className="text-[clamp(2.75rem,6.6vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.04em]">
-        Hand off the long jobs.
+        Hand off long work.
         <br />
-        <span className="text-green">Wake up to verified work.</span>
+        <span className="text-green">Wake up to proof.</span>
       </h1>
       <div className="mt-10 grid gap-8 md:grid-cols-12 md:items-end">
         <div className="md:col-span-6">
@@ -201,7 +201,7 @@ function Night() {
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 md:grid-cols-12 md:py-32">
         <div className="md:col-span-5">
           <div className="md:sticky md:top-28">
-            <SectionHead label="A night on LongWay" title="You sleep. The work keeps its own record." />
+            <SectionHead label="A night on LongWay" title="You sleep. It works." />
             <p className="mt-6 text-lg leading-relaxed text-muted">
               Progress is saved as it happens, not kept in a chat window. When
               you come back, you see what passed, what failed and got fixed, and
@@ -260,15 +260,15 @@ function Night() {
 
 function How() {
   const steps = [
-    ["Describe the job", "A few sentences is enough. An agent asks what’s missing: scope, deadline, budget, what counts as done."],
-    ["Approve the plan", "It becomes a list of tasks, each with its own pass/fail criteria. Change anything before work starts."],
-    ["Walk away", "Agents work in isolated environments. Close the laptop; nothing depends on your session staying open."],
-    ["Review the proof", "Come back to results, the evidence behind them, and a short list of decisions."],
+    ["Describe", "A few sentences is enough. An agent asks what’s missing: scope, deadline, budget, what counts as done."],
+    ["Approve", "It becomes a list of tasks, each with its own pass/fail criteria. Change anything before work starts."],
+    ["Leave", "Agents work in isolated environments. Close the laptop; nothing depends on your session staying open."],
+    ["Review", "Come back to results, the evidence behind them, and a short list of decisions."],
   ];
   return (
     <section id="how" className="border-t border-line">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-        <SectionHead label="How it works" title="You’re needed at the start and the finish." />
+        <SectionHead label="How it works" title="Brief it, then leave." />
         <div className="mt-14 grid items-center gap-12 md:grid-cols-2">
           <Illustration
             src="/illustrations/dual-loop-v2.png"
@@ -295,7 +295,7 @@ function Control() {
       src: "/illustrations/verification-wall-v2.png",
       alt: "Two rooms divided by a wall: a robot builds a product on the left; on the right a different robot with glasses inspects it with a magnifying glass and a checklist.",
       label: "Independent checks",
-      title: "The agent that did the work never grades it.",
+      title: "No self-grading.",
       body: "A separate checker reviews every task in its own session, against the criteria you approved.",
       points: ["Evidence attached to every verdict", "Every criterion covered, or it doesn’t pass", "Each verdict traceable to the run that produced it"],
     },
@@ -303,7 +303,7 @@ function Control() {
       src: "/illustrations/human-gate-v2.png",
       alt: "A robot holding a box marked with a warning triangle waits at a lowered barrier gate while a seated person decides on their phone.",
       label: "Approvals",
-      title: "Risky steps wait for a yes.",
+      title: "Risky steps wait.",
       body: "Agents can ask. Only people can approve. Everything else keeps moving while one task waits.",
       points: ["Deleting files or data", "Publishing anything outside", "Going over budget or asking for new access"],
     },
@@ -311,7 +311,7 @@ function Control() {
   return (
     <section id="control" className="border-t border-line">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-        <SectionHead label="Safety" title="Autonomy, with edges you set." />
+        <SectionHead label="Safety" title="You set the limits." />
         <div className="mt-16 space-y-24 md:space-y-28">
           {pillars.map((p, i) => (
             <article key={p.label} className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
@@ -350,7 +350,7 @@ function Teams() {
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <div className="grid gap-6 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
-            <SectionHead label="Teams" title="Every task gets a small team with clear jobs." />
+            <SectionHead label="Teams" title="A team per task." />
           </div>
           <p className="text-lg leading-relaxed text-muted md:col-span-5">
             Start from ready-made experts or define your own skills, tools and
@@ -389,7 +389,7 @@ function Scenarios() {
           <div className="md:col-span-4">
             <Label>Where it starts</Label>
             <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.02em] md:text-3xl">
-              Built for any long job. Shipping first for software.
+              Software first.
             </h2>
           </div>
           <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 md:col-span-8">
@@ -422,7 +422,7 @@ function CTA() {
     <section className="bg-ink text-paper">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-24 md:grid-cols-12 md:items-end md:py-32">
         <h2 className="text-[clamp(2.25rem,5vw,4rem)] font-semibold leading-[1] tracking-[-0.035em] md:col-span-8">
-          What would you hand off tonight?
+          What would you hand off?
         </h2>
         <div className="md:col-span-4">
           <p className="text-lg leading-relaxed text-paper/70">

@@ -18,7 +18,7 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LongWay — Hand off the long jobs. Wake up to verified work.",
+  title: "LongWay — Hand off long work. Wake up to proof.",
   description:
     "Give AI agents work that takes days. LongWay plans it, runs it while you're away, checks every result independently, and stops for you before anything risky.",
 };
