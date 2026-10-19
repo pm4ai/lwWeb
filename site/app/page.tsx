@@ -1,15 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const ACCESS_HREF = "mailto:hello@longway.example?subject=LongWay%20early%20access";
+
 export default function Home() {
   return (
     <>
       <Nav />
       <main>
         <Hero />
-        <HowItWorks />
-        <Pillars />
-        <Roles />
+        <Night />
+        <How />
+        <Control />
+        <Teams />
         <Scenarios />
         <CTA />
       </main>
@@ -20,6 +23,9 @@ export default function Home() {
 
 /* ---------- primitives ---------- */
 
+const focus =
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green";
+
 function Button({
   href,
   children,
@@ -29,36 +35,46 @@ function Button({
   children: React.ReactNode;
   variant?: "primary" | "ghost";
 }) {
-  const base =
-    "inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
   const styles =
     variant === "primary"
-      ? "bg-foreground text-background hover:bg-accent"
-      : "border border-line bg-background text-foreground hover:border-foreground";
+      ? "bg-ink text-paper hover:bg-green"
+      : "border border-line text-ink hover:border-ink";
   return (
-    <Link href={href} className={`${base} ${styles}`}>
+    <Link
+      href={href}
+      className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-medium transition-colors ${styles} ${focus}`}
+    >
       {children}
     </Link>
   );
 }
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-accent">
+    <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-green">
       {children}
     </p>
+  );
+}
+
+function SectionHead({ label, title }: { label: string; title: string }) {
+  return (
+    <div className="max-w-3xl">
+      <Label>{label}</Label>
+      <h2 className="mt-4 text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
+        {title}
+      </h2>
+    </div>
   );
 }
 
 function Illustration({
   src,
   alt,
-  priority = false,
   className = "",
 }: {
   src: string;
   alt: string;
-  priority?: boolean;
   className?: string;
 }) {
   return (
@@ -67,7 +83,6 @@ function Illustration({
       alt={alt}
       width={1536}
       height={1024}
-      priority={priority}
       sizes="(min-width: 768px) 50vw, 100vw"
       className={`h-auto w-full ${className}`}
     />
@@ -84,7 +99,7 @@ function Mark() {
         strokeWidth="2"
         strokeLinejoin="round"
       />
-      <circle cx="11" cy="17" r="2" className="fill-accent" />
+      <circle cx="11" cy="17" r="2" className="fill-green" />
     </svg>
   );
 }
@@ -93,30 +108,34 @@ function Mark() {
 
 function Nav() {
   const links = [
+    ["A night on LongWay", "#night"],
     ["How it works", "#how"],
-    ["Why LongWay", "#why"],
+    ["Safety", "#control"],
     ["Teams", "#teams"],
   ];
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-background/85 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur">
       <nav
         aria-label="Primary"
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6"
       >
-        <Link href="/" className="flex items-center gap-2 font-medium tracking-tight">
+        <Link
+          href="/"
+          className={`flex items-center gap-2 font-display text-[17px] font-semibold tracking-tight ${focus}`}
+        >
           <Mark />
           LongWay
         </Link>
-        <ul className="hidden items-center gap-8 text-sm text-muted md:flex">
+        <ul className="hidden items-center gap-7 text-sm text-muted md:flex">
           {links.map(([label, href]) => (
             <li key={href}>
-              <a href={href} className="hover:text-foreground">
+              <a href={href} className={`hover:text-ink ${focus}`}>
                 {label}
               </a>
             </li>
           ))}
         </ul>
-        <Button href="#beta">Request beta access</Button>
+        <Button href={ACCESS_HREF}>Request access</Button>
       </nav>
     </header>
   );
@@ -124,27 +143,25 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-28">
-      <div className="mx-auto max-w-4xl text-center">
-        <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-xs text-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          Private beta
-        </p>
-        <h1 className="text-5xl font-medium leading-[1.05] tracking-tight md:text-6xl">
-          Hand off work that takes days.
-          <br />
-          <span className="text-muted">Get back verified results.</span>
-        </h1>
-        <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-muted">
-          A cloud workspace where people and AI agents push long-running goals
-          to completion, and nothing counts as done until it is independently
-          verified.
-        </p>
-        <div className="mt-9 flex flex-wrap justify-center gap-3">
-          <Button href="#beta">Request beta access</Button>
-          <Button href="#how" variant="ghost">
-            See how it works
-          </Button>
+    <section className="mx-auto max-w-6xl px-6 pt-16 md:pt-24">
+      <h1 className="text-[clamp(2.75rem,6.6vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.04em]">
+        Hand off the long jobs.
+        <br />
+        <span className="text-green">Wake up to verified work.</span>
+      </h1>
+      <div className="mt-10 grid gap-8 md:grid-cols-12 md:items-end">
+        <div className="md:col-span-6">
+          <p className="text-lg leading-relaxed text-muted">
+            Give AI agents work that takes days, not minutes. LongWay plans it,
+            keeps it running while you’re away, and doesn’t call anything done
+            until a separate checker proves it.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Button href={ACCESS_HREF}>Request early access</Button>
+            <Button href="#night" variant="ghost">
+              See a night’s work
+            </Button>
+          </div>
         </div>
       </div>
       <Image
@@ -154,39 +171,115 @@ function Hero() {
         height={1152}
         priority
         sizes="(min-width: 1152px) 1152px, 100vw"
-        className="mt-10 h-auto w-full md:mt-6"
+        className="mt-8 h-auto w-full"
       />
     </section>
   );
 }
 
-function HowItWorks() {
+type Tone = "neutral" | "pass" | "attention";
+
+const LOG: { time: string; tag: string; tone: Tone; text: string }[] = [
+  { time: "22:41", tag: "Plan", tone: "neutral", text: "You approved the plan: 9 tasks to move auth to v3." },
+  { time: "22:43", tag: "Run", tone: "neutral", text: "Three tasks start in parallel, each in its own environment." },
+  { time: "01:12", tag: "Check", tone: "attention", text: "T-4 failed review: 2 of 14 tests still fail. Sent back to the builder." },
+  { time: "01:58", tag: "Run", tone: "neutral", text: "T-4 reworked. The same checker runs the suite again." },
+  { time: "02:20", tag: "Check", tone: "pass", text: "T-4 passed: 14 of 14 tests, with evidence attached." },
+  { time: "04:05", tag: "Gate", tone: "attention", text: "T-7 wants to delete 12 legacy files. Paused for your approval." },
+  { time: "06:30", tag: "Run", tone: "neutral", text: "6 of 9 tasks verified. $38 spent of a $120 budget." },
+];
+
+const toneStyles: Record<Tone, string> = {
+  neutral: "border-line text-muted",
+  pass: "border-transparent bg-mint text-green",
+  attention: "border-transparent bg-amber-soft text-amber",
+};
+
+function Night() {
+  return (
+    <section id="night" className="mt-20 border-t border-line md:mt-28">
+      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 md:grid-cols-12 md:py-32">
+        <div className="md:col-span-5">
+          <div className="md:sticky md:top-28">
+            <SectionHead label="A night on LongWay" title="You sleep. The work keeps its own record." />
+            <p className="mt-6 text-lg leading-relaxed text-muted">
+              Progress is saved as it happens, not kept in a chat window. When
+              you come back, you see what passed, what failed and got fixed, and
+              the one thing that needs you.
+            </p>
+            <Illustration
+              src="/illustrations/overnight-run-v2.png"
+              alt="A person sleeps under a moonlit window while two robot agents keep working at a desk, filling an inbox tray with cards."
+              className="mt-8"
+            />
+          </div>
+        </div>
+
+        <figure className="md:col-span-7">
+          <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_24px_60px_-36px_rgba(22,24,26,0.28)]">
+            <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
+              <p className="font-display text-sm font-semibold">Migrate auth to v3</p>
+              <p className="font-mono text-[11px] text-muted">billing-api</p>
+            </div>
+            <ol className="divide-y divide-line">
+              {LOG.map((e) => (
+                <li
+                  key={e.time}
+                  className="grid grid-cols-[3.25rem_1fr] gap-x-4 gap-y-1.5 px-5 py-4 sm:grid-cols-[3.25rem_4.5rem_1fr]"
+                >
+                  <time className="pt-0.5 font-mono text-xs text-muted">{e.time}</time>
+                  <span
+                    className={`w-fit rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${toneStyles[e.tone]}`}
+                  >
+                    {e.tag}
+                  </span>
+                  <p className="col-start-2 text-[15px] leading-snug sm:col-start-3 sm:row-start-1">
+                    {e.text}
+                  </p>
+                </li>
+              ))}
+            </ol>
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line bg-paper px-5 py-4">
+              <p className="flex items-center gap-2.5 text-sm font-medium">
+                <span className="animate-waiting h-2 w-2 rounded-full bg-amber" aria-hidden="true" />
+                Waiting for you: 1 decision
+              </p>
+              <span className="rounded-full bg-ink px-3.5 py-1.5 text-xs font-medium text-paper">
+                Review
+              </span>
+            </div>
+          </div>
+          <figcaption className="mt-4 font-mono text-[11px] text-muted">
+            Example run log. Task names and numbers are illustrative.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  );
+}
+
+function How() {
   const steps = [
-    ["Clarify", "You say what you want. An expert asks what's missing and writes a spec you confirm."],
-    ["Plan", "The spec becomes a task tree with acceptance criteria. Edit it, confirm, and walk away."],
-    ["Execute", "Teams run each task in isolated environments. Every state change is saved."],
-    ["Verify", "Someone who never touched the work judges it, with evidence. Only a pass unlocks the next task."],
+    ["Describe the job", "A few sentences is enough. An agent asks what’s missing: scope, deadline, budget, what counts as done."],
+    ["Approve the plan", "It becomes a list of tasks, each with its own pass/fail criteria. Change anything before work starts."],
+    ["Walk away", "Agents work in isolated environments. Close the laptop; nothing depends on your session staying open."],
+    ["Review the proof", "Come back to results, the evidence behind them, and a short list of decisions."],
   ];
   return (
     <section id="how" className="border-t border-line">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 md:grid-cols-2 md:py-32">
-        <Illustration
-          src="/illustrations/dual-loop-v2.png"
-          alt="A robot agent at a whiteboard explains a task tree to a seated person while three robots at desks below receive the tasks."
-        />
-        <div>
-          <Eyebrow>How it works</Eyebrow>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
-            Two loops. One owns the goal, the other owns each task.
-          </h2>
-          <ol className="mt-10 space-y-6">
+      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <SectionHead label="How it works" title="You’re needed at the start and the finish." />
+        <div className="mt-14 grid items-center gap-12 md:grid-cols-2">
+          <Illustration
+            src="/illustrations/dual-loop-v2.png"
+            alt="A robot agent at a whiteboard explains a task tree to a seated person while three robots at desks below receive the tasks."
+          />
+          <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
             {steps.map(([t, d], i) => (
-              <li key={t} className="flex gap-5">
-                <span className="mt-0.5 font-mono text-xs text-muted">0{i + 1}</span>
-                <div>
-                  <h3 className="font-medium">{t}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted">{d}</p>
-                </div>
+              <li key={t} className="border-t border-ink pt-4">
+                <p className="font-mono text-xs text-muted">{i + 1}</p>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight">{t}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted">{d}</p>
               </li>
             ))}
           </ol>
@@ -196,81 +289,84 @@ function HowItWorks() {
   );
 }
 
-function Pillars() {
-  const items = [
+function Control() {
+  const pillars = [
     {
       src: "/illustrations/verification-wall-v2.png",
       alt: "Two rooms divided by a wall: a robot builds a product on the left; on the right a different robot with glasses inspects it with a magnifying glass and a checklist.",
-      eyebrow: "Independent verification",
-      title: "Whoever did the work can't grade it.",
-      body: "A separate verifier checks every acceptance criterion and attaches evidence. “Done” is a verdict you can trace, not a claim.",
+      label: "Independent checks",
+      title: "The agent that did the work never grades it.",
+      body: "A separate checker reviews every task in its own session, against the criteria you approved.",
+      points: ["Evidence attached to every verdict", "Every criterion covered, or it doesn’t pass", "Each verdict traceable to the run that produced it"],
     },
     {
       src: "/illustrations/human-gate-v2.png",
       alt: "A robot holding a box marked with a warning triangle waits at a lowered barrier gate while a seated person decides on their phone.",
-      eyebrow: "Human gates",
-      title: "Risky actions stop and wait for you.",
-      body: "Deleting files, publishing externally, exceeding budget. The work pauses, you approve or reject, and the decision is recorded.",
-    },
-    {
-      src: "/illustrations/overnight-run-v2.png",
-      alt: "A person sleeps under a moonlit window while two robot agents keep working at a desk, filling an inbox tray with cards.",
-      eyebrow: "Runs while you're away",
-      title: "Close the laptop. Come back to decisions, not logs.",
-      body: "State is saved on every change. Work continues, pauses only at gates, and greets you with a short list of what needs you.",
+      label: "Approvals",
+      title: "Risky steps wait for a yes.",
+      body: "Agents can ask. Only people can approve. Everything else keeps moving while one task waits.",
+      points: ["Deleting files or data", "Publishing anything outside", "Going over budget or asking for new access"],
     },
   ];
   return (
-    <section id="why" className="border-t border-line bg-white">
-      <div className="mx-auto max-w-6xl space-y-24 px-6 py-24 md:space-y-32 md:py-32">
-        {items.map((it, i) => (
-          <div
-            key={it.eyebrow}
-            className="grid items-center gap-12 md:grid-cols-2"
-          >
-            <Illustration
-              src={it.src}
-              alt={it.alt}
-              className={i % 2 === 1 ? "md:order-2" : ""}
-            />
-            <div className={i % 2 === 1 ? "md:order-1" : ""}>
-              <Eyebrow>{it.eyebrow}</Eyebrow>
-              <h2 className="text-3xl font-medium tracking-tight md:text-4xl">{it.title}</h2>
-              <p className="mt-5 text-lg leading-relaxed text-muted">{it.body}</p>
-            </div>
-          </div>
-        ))}
+    <section id="control" className="border-t border-line">
+      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <SectionHead label="Safety" title="Autonomy, with edges you set." />
+        <div className="mt-16 space-y-24 md:space-y-28">
+          {pillars.map((p, i) => (
+            <article key={p.label} className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+              <Illustration src={p.src} alt={p.alt} className={i % 2 ? "md:order-2" : ""} />
+              <div>
+                <Label>{p.label}</Label>
+                <h3 className="mt-3 text-[clamp(1.6rem,2.6vw,2.25rem)] font-semibold leading-tight tracking-[-0.025em]">
+                  {p.title}
+                </h3>
+                <p className="mt-4 text-lg leading-relaxed text-muted">{p.body}</p>
+                <ul className="mt-6 space-y-2.5">
+                  {p.points.map((pt) => (
+                    <li key={pt} className="flex gap-3 text-[15px]">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-green" aria-hidden="true" />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function Roles() {
+function Teams() {
   const roles = [
-    ["Lead", "Plans the approach, pulls in executors, reports back."],
-    ["Executor", "Does the work with only the permissions the task needs."],
-    ["Verifier", "Never touches the output. Judges it in a separate session."],
+    ["Lead", "Breaks the task down and runs the team’s playbook."],
+    ["Builder", "Does the work, with only the access that task needs."],
+    ["Checker", "Never touches the output. Decides if it meets the bar."],
   ];
   return (
     <section id="teams" className="border-t border-line">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-2xl text-center">
-          <Eyebrow>Experts and teams</Eyebrow>
-          <h2 className="text-3xl font-medium tracking-tight md:text-4xl">
-            Experts with real roles, and a wall between doing and judging.
-          </h2>
+        <div className="grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <SectionHead label="Teams" title="Every task gets a small team with clear jobs." />
+          </div>
+          <p className="text-lg leading-relaxed text-muted md:col-span-5">
+            Start from ready-made experts or define your own skills, tools and
+            playbooks. Change a team once and every project using it follows.
+          </p>
         </div>
-        <div className="mx-auto mt-12 max-w-4xl">
-          <Illustration
-            src="/illustrations/team-roles-v2.png"
-            alt="Three robot agents: a lead in a hard hat pointing at a board, an executor typing at a desk, and a verifier with glasses and a magnifying glass behind a glass partition."
-          />
-        </div>
-        <ul className="mx-auto mt-6 grid max-w-4xl gap-8 text-center sm:grid-cols-3">
+        <Illustration
+          src="/illustrations/team-roles-v2.png"
+          alt="Three robot agents: a lead in a hard hat pointing at a board, a builder typing at a desk, and a checker with glasses and a magnifying glass behind a glass partition."
+          className="mx-auto mt-12 max-w-4xl"
+        />
+        <ul className="mx-auto mt-4 grid max-w-4xl gap-8 sm:grid-cols-3">
           {roles.map(([t, d]) => (
-            <li key={t}>
-              <h3 className="font-medium">{t}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-muted">{d}</p>
+            <li key={t} className="text-center">
+              <h3 className="text-lg font-semibold tracking-tight">{t}</h3>
+              <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{d}</p>
             </li>
           ))}
         </ul>
@@ -280,40 +376,42 @@ function Roles() {
 }
 
 function Scenarios() {
-  const rows = [
-    ["Software delivery", "Private beta"],
-    ["Cross-border e-commerce", "Planned"],
-    ["Insurance services", "Planned"],
-    ["Research & operations", "Planned"],
+  const rows: [string, string, boolean][] = [
+    ["Software delivery", "Migrations, bug fixes, test coverage, new builds", true],
+    ["E-commerce operations", "Listings, ads, inventory, support", false],
+    ["Insurance services", "Intake, document collection, renewals", false],
+    ["Research & reporting", "Market research, analysis, recurring reports", false],
   ];
   return (
-    <section className="border-t border-line bg-white">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-20 md:flex-row md:items-center md:justify-between">
-        <div className="max-w-md">
-          <Eyebrow>Scenarios</Eyebrow>
-          <h2 className="text-2xl font-medium tracking-tight md:text-3xl">
-            One engine. Different experts for different work.
-          </h2>
+    <section className="border-t border-line">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+        <div className="grid gap-10 md:grid-cols-12">
+          <div className="md:col-span-4">
+            <Label>Where it starts</Label>
+            <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.02em] md:text-3xl">
+              Built for any long job. Shipping first for software.
+            </h2>
+          </div>
+          <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 md:col-span-8">
+            {rows.map(([name, ex, live]) => (
+              <li key={name} className="bg-paper p-5">
+                <div className="flex items-center justify-between gap-4">
+                  <h3 className="font-semibold tracking-tight">{name}</h3>
+                  <span
+                    className={
+                      live
+                        ? "rounded-full bg-mint px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-green"
+                        : "rounded-full border border-line px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted"
+                    }
+                  >
+                    {live ? "Private beta" : "Later"}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-muted">{ex}</p>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="grid gap-3 sm:grid-cols-2">
-          {rows.map(([d, s]) => (
-            <li
-              key={d}
-              className="flex items-center justify-between gap-6 rounded-xl border border-line px-4 py-3 text-sm"
-            >
-              <span className="font-medium">{d}</span>
-              <span
-                className={
-                  s === "Private beta"
-                    ? "rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent"
-                    : "rounded-full border border-line px-2.5 py-0.5 text-xs text-muted"
-                }
-              >
-                {s}
-              </span>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
@@ -321,17 +419,23 @@ function Scenarios() {
 
 function CTA() {
   return (
-    <section id="beta" className="border-t border-line bg-foreground text-background">
-      <div className="mx-auto flex max-w-6xl flex-col items-start gap-8 px-6 py-24 md:flex-row md:items-center md:justify-between md:py-32">
-        <h2 className="max-w-xl text-3xl font-medium tracking-tight md:text-4xl">
-          Give an agent a goal and a boundary. Go to sleep.
+    <section className="bg-ink text-paper">
+      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-24 md:grid-cols-12 md:items-end md:py-32">
+        <h2 className="text-[clamp(2.25rem,5vw,4rem)] font-semibold leading-[1] tracking-[-0.035em] md:col-span-8">
+          What would you hand off tonight?
         </h2>
-        <Link
-          href="mailto:hello@longway.example"
-          className="inline-flex h-12 items-center rounded-full bg-background px-6 text-sm font-medium text-foreground hover:bg-accent-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background"
-        >
-          Request beta access
-        </Link>
+        <div className="md:col-span-4">
+          <p className="text-lg leading-relaxed text-paper/70">
+            We’re onboarding software teams to the private beta. Tell us about
+            the job, and we’ll set you up.
+          </p>
+          <Link
+            href={ACCESS_HREF}
+            className="mt-7 inline-flex h-12 items-center rounded-full bg-paper px-6 text-sm font-medium text-ink transition-colors hover:bg-mint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+          >
+            Request early access
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -339,10 +443,10 @@ function CTA() {
 
 function Footer() {
   return (
-    <footer className="border-t border-line">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted md:flex-row md:items-center md:justify-between">
-        <p className="flex items-center gap-2 text-foreground">
-          <Mark /> LongWay Agent Workspace
+    <footer className="bg-ink text-paper/60">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 border-t border-paper/15 px-6 py-8 text-sm md:flex-row md:items-center md:justify-between">
+        <p className="flex items-center gap-2 font-display font-semibold text-paper">
+          <Mark /> LongWay
         </p>
         <p>© 2026 LongWay. Private beta.</p>
       </div>

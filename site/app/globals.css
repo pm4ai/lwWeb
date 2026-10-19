@@ -1,32 +1,66 @@
 @import "tailwindcss";
 
+/* Paper matches the illustration backgrounds; keep sections on it so image edges never show. */
 :root {
-  --background: #fafaf8;
-  --foreground: #16181a;
-  --muted: #6b6f76;
-  --line: #e6e5e0;
-  --accent: #0f6b4f;
-  --accent-soft: #e6f2ec;
+  --paper: #fafaf8;
+  --ink: #16181a;
+  --muted: #5f636a;
+  --line: #e4e2dc;
+  --green: #0f6b4f;
+  --mint: #e6f2ec;
+  --sand: #ece6da;
+  --amber: #a15c07;
+  --amber-soft: #fbf0dc;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-green: var(--green);
+  --color-mint: var(--mint);
+  --color-sand: var(--sand);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --font-display: var(--font-display-face);
+  --font-sans: var(--font-body-face);
+  --font-mono: var(--font-mono-face);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-feature-settings: "ss01", "cv11";
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 ::selection {
-  background: var(--accent-soft);
+  background: var(--mint);
+}
+
+@keyframes waiting {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.animate-waiting {
+  animation: waiting 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-waiting {
+    animation: none;
+  }
 }
