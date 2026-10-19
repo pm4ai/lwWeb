@@ -148,8 +148,8 @@ function Hero() {
         </div>
       </div>
       <Image
-        src="/illustrations/hero.png"
-        alt="A single line winds from a starting circle through milestones, briefly splits into parallel branches, and ends at a green checkmark."
+        src="/illustrations/hero-v2.png"
+        alt="A person hands a folder to a robot agent; three robots work along a winding road under a moon; at the end the person receives a package sealed with a green checkmark."
         width={2048}
         height={1152}
         priority
@@ -171,8 +171,8 @@ function HowItWorks() {
     <section id="how" className="border-t border-line">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 md:grid-cols-2 md:py-32">
         <Illustration
-          src="/illustrations/dual-loop.png"
-          alt="Two concentric loops with flow arrows; one node on the inner loop is filled green and connects to the outer loop."
+          src="/illustrations/dual-loop-v2.png"
+          alt="A robot agent at a whiteboard explains a task tree to a seated person while three robots at desks below receive the tasks."
         />
         <div>
           <Eyebrow>How it works</Eyebrow>
@@ -199,22 +199,22 @@ function HowItWorks() {
 function Pillars() {
   const items = [
     {
-      src: "/illustrations/verification-wall.png",
-      alt: "Two boxes separated by a wall: work being produced on the left, a magnifying glass and green checkmark inspecting it on the right.",
+      src: "/illustrations/verification-wall-v2.png",
+      alt: "Two rooms divided by a wall: a robot builds a product on the left; on the right a different robot with glasses inspects it with a magnifying glass and a checklist.",
       eyebrow: "Independent verification",
       title: "Whoever did the work can't grade it.",
       body: "A separate verifier checks every acceptance criterion and attaches evidence. “Done” is a verdict you can trace, not a claim.",
     },
     {
-      src: "/illustrations/human-gate.png",
-      alt: "A path interrupted by a small gate with an open hand above it; the path continues to a green dot beyond.",
+      src: "/illustrations/human-gate-v2.png",
+      alt: "A robot holding a box marked with a warning triangle waits at a lowered barrier gate while a seated person decides on their phone.",
       eyebrow: "Human gates",
       title: "Risky actions stop and wait for you.",
       body: "Deleting files, publishing externally, exceeding budget. The work pauses, you approve or reject, and the decision is recorded.",
     },
     {
-      src: "/illustrations/overnight-run.png",
-      alt: "A closed laptop, a dotted line passing under a moon and stars, ending at a green dot beside an inbox tray.",
+      src: "/illustrations/overnight-run-v2.png",
+      alt: "A person sleeps under a moonlit window while two robot agents keep working at a desk, filling an inbox tray with cards.",
       eyebrow: "Runs while you're away",
       title: "Close the laptop. Come back to decisions, not logs.",
       body: "State is saved on every change. Work continues, pauses only at gates, and greets you with a short list of what needs you.",
@@ -262,8 +262,8 @@ function Roles() {
         </div>
         <div className="mx-auto mt-12 max-w-4xl">
           <Illustration
-            src="/illustrations/team-roles.png"
-            alt="Three simple figures: one holding a flag, one beside two bars of work, and one holding a magnifying glass behind a dashed divider."
+            src="/illustrations/team-roles-v2.png"
+            alt="Three robot agents: a lead in a hard hat pointing at a board, an executor typing at a desk, and a verifier with glasses and a magnifying glass behind a glass partition."
           />
         </div>
         <ul className="mx-auto mt-6 grid max-w-4xl gap-8 text-center sm:grid-cols-3">
